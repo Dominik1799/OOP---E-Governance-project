@@ -1,4 +1,4 @@
-package Controllers;
+package Factories;
 import Users.*;
 
 public class UserFactory {

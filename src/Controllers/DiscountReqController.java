@@ -1,5 +1,6 @@
 package Controllers;
 
+import Factories.Datasource;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -14,7 +15,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class DiscountReqController implements Initializable {
+public class DiscountReqController implements Initializable,MenuInterface {
     User user;
 
     @Override
@@ -49,6 +50,11 @@ public class DiscountReqController implements Initializable {
         Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
         window.setScene(newscene);
         window.show();
+    }
+
+    @Override
+    public void onDiscReqClick(ActionEvent event) throws IOException {
+
     }
 
     public void onOverviewClick(ActionEvent event) throws IOException {

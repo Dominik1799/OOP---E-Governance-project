@@ -1,4 +1,4 @@
-package Controllers;
+package Factories;
 import ParkPlaces.*;
 
 public class ParkingFactory {

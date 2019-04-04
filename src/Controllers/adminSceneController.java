@@ -1,5 +1,7 @@
 package Controllers;
 
+import Factories.Datasource;
+import Factories.UserFactory;
 import Users.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

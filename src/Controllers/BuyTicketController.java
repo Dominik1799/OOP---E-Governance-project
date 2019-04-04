@@ -1,5 +1,6 @@
 package Controllers;
 
+import Factories.Datasource;
 import ParkPlaces.ParkPlace;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -18,7 +19,7 @@ import java.sql.SQLException;
 import java.util.ResourceBundle;
 import Users.*;
 
-public class BuyTicketController implements Initializable {
+public class BuyTicketController implements Initializable,MenuInterface {
     @FXML
     private ComboBox towns;
     @FXML
@@ -73,10 +74,10 @@ public class BuyTicketController implements Initializable {
         basePrice.setText(String.valueOf(parkPlace.getBaseHourPrice()));
         type.setText(pomoc.getName().replace("ParkPlaces.","").replace("Parking",""));
         if (this.user instanceof Student)
-            cost.setText(parkPlace.calculatePrice((Student)this.user,hour) + " € (with student discount)");
+            cost.setText(String.format("%.2f",parkPlace.calculatePrice((Student) this.user,hour)) + " € (with Student discount)");
         else
         if (this.user instanceof DisabledPerson)
-            cost.setText(parkPlace.calculatePrice((DisabledPerson) this.user,hour) + " € (with SDP discount)");
+            cost.setText(String.format("%.2f",parkPlace.calculatePrice((DisabledPerson) this.user,hour)) + " € (with SDP discount)");
         else
             cost.setText(parkPlace.calculatePrice(this.user,hour) + " €");
         if (parkPlace.getNumOfDPPSpots() == 0 && this.user instanceof DisabledPerson)
@@ -101,5 +102,10 @@ public class BuyTicketController implements Initializable {
         Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
         window.setScene(loginScene);
         window.show();
+    }
+
+    @Override
+    public void onBuyTicketClick(ActionEvent event) throws IOException {
+
     }
 }

@@ -15,7 +15,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class HomeScreenController implements Initializable {
+public class HomeScreenController implements Initializable,MenuInterface {
 
     private User user;
     @FXML
@@ -79,5 +79,10 @@ public class HomeScreenController implements Initializable {
         Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
         window.setScene(newscene);
         window.show();
+    }
+
+    @Override
+    public void onOverviewClick(ActionEvent event) {
+
     }
 }

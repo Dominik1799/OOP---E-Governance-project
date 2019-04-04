@@ -1,7 +1,5 @@
 package Users;
 
-import Controllers.Datasource;
-
 public class User implements user_interface {
     private String name;
     private String surename;

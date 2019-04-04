@@ -1,7 +1,5 @@
-package Controllers;//using Datasource class as a database manager using singleton design pattern
+package Factories;//using Datasource class as a database manager using singleton design pattern
 import ParkPlaces.*;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 
 
 import java.sql.*;
