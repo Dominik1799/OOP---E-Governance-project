@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.DiscountReqController">
+   <children>
+      <VBox prefHeight="600.0" prefWidth="233.0" style="-fx-background-color: #FFDC00;">
+         <children>
+            <JFXButton focusTraversable="false" onAction="#onOverviewClick" prefHeight="71.0" prefWidth="238.0" text="Overview">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </JFXButton>
+            <JFXButton focusTraversable="false" layoutX="10.0" layoutY="10.0" onAction="#onBuyTicketClick" prefHeight="71.0" prefWidth="238.0" text="Buy ticket">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </JFXButton>
+            <JFXButton disable="true" focusTraversable="false" layoutX="10.0" layoutY="81.0" prefHeight="71.0" prefWidth="238.0" text="Discount req.">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </JFXButton>
+            <JFXButton focusTraversable="false" layoutX="10.0" layoutY="152.0" onAction="#onLogOutClick" prefHeight="71.0" prefWidth="238.0" text="Log out">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </JFXButton>
+         </children>
+      </VBox>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#343a40" height="600.0" layoutX="232.0" stroke="BLACK" strokeType="INSIDE" width="7.0" />
+      <Label layoutX="275.0" layoutY="42.0" text="Request for a special account">
+         <font>
+            <Font size="28.0" />
+         </font>
+      </Label>
+      <Label layoutX="275.0" layoutY="96.0" text="Here you can send a request to transform your account into a student one or a DPP one." />
+      <JFXTextField layoutX="424.0" layoutY="227.0" prefHeight="31.0" prefWidth="170.0" />
+      <JFXTextField layoutX="424.0" layoutY="382.0" prefHeight="31.0" prefWidth="170.0" />
+      <Text layoutX="267.0" layoutY="248.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Student ID (ISIC,etc..):">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Text>
+      <Text layoutX="267.0" layoutY="403.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Severely disabled ID:">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Text>
+      <JFXButton layoutX="620.0" layoutY="230.0" onAction="#onSubmitStudentClick" style="-fx-background-color: #343a40;" text="Send request" textFill="WHITE" />
+      <JFXButton layoutX="620.0" layoutY="385.0" onAction="#onSubmitDisabledClick" style="-fx-background-color: #343a40;" text="Send request" textFill="WHITE" />
+   </children>
+</AnchorPane>

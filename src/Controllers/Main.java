@@ -20,6 +20,9 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception{
         //manualne vytvoreny prvy screen
+        //tieto dva riadky su len na rychlejsie pracovanie s databzou
+        Datasource.getInstance().openUsers();
+        Datasource.getInstance().closeConnection();
         Parent root = FXMLLoader.load(getClass().getResource("../Scenes/login.fxml"));
         VBox pane = new VBox();
         pane.setAlignment(Pos.CENTER);
@@ -29,8 +32,12 @@ public class Main extends Application {
         pane.setSpacing(25);
         String stylePane = "-fx-background-color: rgba(255, 220, 0, 1);";
         String styleButton = "-fx-background-color: rgba(52, 58, 64, 1);" +
-                            "";
+                            "-fx-text-fill: white;" +
+                            "-fx-pref-height: 35;" +
+                            "-fx-pref-width: 100;";
         pane.setStyle(stylePane);
+        quitApp.setStyle(styleButton);
+        runApp.setStyle(styleButton);
         welcomeText.setFont(Font.font("Cambria", 32));
         runApp.setOnAction(event1 -> primaryStage.setScene((new Scene(root, 800, 600))));
         quitApp.setOnAction(event2 -> primaryStage.close());

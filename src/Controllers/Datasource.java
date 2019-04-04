@@ -1,23 +1,35 @@
 package Controllers;//using Datasource class as a database manager using singleton design pattern
 import ParkPlaces.*;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 
 import java.sql.*;
 
 public class Datasource {
+    private Connection conn;
     private static Datasource instance = new Datasource();
 
     private Datasource() {
-
+//        try {
+//            conn = DriverManager.getConnection("jdbc:sqlite:users.db");
+//        } catch (SQLException e){
+//            System.out.println("ajaaj");
+//        }
     }
+
 
     public static Datasource getInstance() {
         return instance;
     }
+
+    public void closeConnection() throws SQLException{
+        this.conn.close();
+    }
     //FUNGUJE
     public ResultSet openUsers() {
         try {
-            Connection conn = DriverManager.getConnection("jdbc:sqlite:users.db");
+            conn = DriverManager.getConnection("jdbc:sqlite:users.db");
             Statement statement = conn.createStatement();
             statement.execute("SELECT * FROM users");
             //statement.execute("INSERT INTO users (SPZ)" + "VALUES:('ahoj')");
@@ -29,9 +41,11 @@ public class Datasource {
         }
         return null;
     }
+
+
     //FUNGUJE
     public void createUser(String SPZ,String Password,String Name,String Surename,String FuelType)  {
-        String sql = "INSERT INTO users(SPZ,Password,Name,Surename,FuelType) VALUES(?,?,?,?,?)";
+        String sql = "INSERT INTO users(SPZ,Password,Name,Surename,FuelType,Type) VALUES(?,?,?,?,?,?)";
         try {
             Connection conn = DriverManager.getConnection("jdbc:sqlite:users.db");
             PreparedStatement pstmt = conn.prepareStatement(sql);
@@ -40,11 +54,35 @@ public class Datasource {
             pstmt.setString(3, Name);
             pstmt.setString(4, Surename);
             pstmt.setString(5, FuelType);
+            pstmt.setString(6, "regular");
             pstmt.executeUpdate();
             conn.close();
 
         } catch (SQLException e) {
             System.out.println("FATAL ERROR: couldn't connect to the USERS database");
+        }
+    }
+
+    public void makeReq(int type,String SPZ){
+        String sql = "UPDATE users "
+                + "SET req = ? "
+                + "WHERE SPZ = ?";
+        try {
+            conn = DriverManager.getConnection("jdbc:sqlite:users.db");
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            //Dominik je to tym prikazom samotnym. z nejakeho dovodu to nestiha prelozit. najdi iny prikaz
+            pstmt.setInt(1, type);
+            pstmt.setString(2, SPZ);
+            int rowAffected = pstmt.executeUpdate();
+//            PreparedStatement pstmt = conn.prepareStatement(sql);
+//
+//            pstmt.setString(1,String.valueOf(type));
+//            pstmt.setString(2,SPZ);
+//            pstmt.executeUpdate();
+//            conn.close();
+
+        } catch (SQLException e) {
+            System.out.println(e);
         }
     }
 
@@ -64,5 +102,41 @@ public class Datasource {
         int hourPrice = results.getInt("hourprice");
         return ParkingFactory.getInstance().makeParkPlace(type,numOfDPP,hourPrice);
     }
+
+    public void updateUser(String SPZ,String Type){
+        String sql = "UPDATE users "
+                + "SET Type = ? "
+                + "WHERE SPZ = ?";
+        String sql1 = "UPDATE users "
+                + "SET req = ? "
+                + "WHERE SPZ = ?";
+        try {
+            conn = DriverManager.getConnection("jdbc:sqlite:users.db");
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            PreparedStatement pstmt1 = conn.prepareStatement(sql1);
+            //Dominik je to tym prikazom samotnym. z nejakeho dovodu to nestiha prelozit. najdi iny prikaz
+            pstmt.setString(1, Type);
+            pstmt.setString(2, SPZ);
+            pstmt1.setString(1, "");
+            pstmt1.setString(2, SPZ);
+            pstmt.executeUpdate();
+            pstmt1.executeUpdate();
+        }catch(SQLException e){
+            System.out.println(e);
+        }
+    }
+
+//    public ObservableList<String> getPendingReqStudent() throws SQLException{
+//        ObservableList<String> people = FXCollections.observableArrayList();
+//        Connection conn = DriverManager.getConnection("jdbc:sqlite:parkPlaces.db");
+//        Statement statement = conn.createStatement();
+//        statement.execute("SELECT * FROM users");
+//        ResultSet results = statement.getResultSet();
+//        while(results.next()){
+//            if (results.getInt("req") == 1)
+//                people.add(results.getString("SPZ"));
+//        }
+//        return people;
+//    }
 }
 
