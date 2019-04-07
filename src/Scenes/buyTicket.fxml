@@ -19,6 +19,11 @@
                   <Font size="24.0" />
                </font>
             </JFXButton>
+            <JFXButton focusTraversable="false" onAction="#onWalletClick" prefHeight="71.0" prefWidth="236.0" style="-fx-background-color: #FFDC00;" text="Wallet">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </JFXButton>
             <JFXButton disable="true" focusTraversable="false" layoutX="10.0" layoutY="10.0" onAction="#onOverviewClick" prefHeight="71.0" prefWidth="236.0" style="-fx-background-color: #FFDC00;" text="Buy ticket">
                <font>
                   <Font size="24.0" />
@@ -41,30 +46,35 @@
             <Font size="28.0" />
          </font>
       </Label>
-      <Text layoutX="388.0" layoutY="194.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Where do you want to park?" />
-      <JFXButton defaultButton="true" focusTraversable="false" layoutX="434.0" layoutY="324.0" onAction="#onOKclick" prefHeight="27.0" prefWidth="91.0" style="-fx-background-color: #343a40;" text="Show details" textFill="WHITE" />
-      <Label layoutX="377.0" layoutY="466.0" prefHeight="17.0" prefWidth="78.0" text="Total cost:" />
-      <Text layoutX="388.0" layoutY="269.0" strokeType="OUTSIDE" strokeWidth="0.0" text="How long will you park there?" />
-      <JFXTextField fx:id="hours" layoutX="388.0" layoutY="273.0" prefHeight="27.0" prefWidth="182.0" />
-      <Label fx:id="cost" layoutX="451.0" layoutY="456.0" prefHeight="38.0" prefWidth="342.0" text="---€">
+      <Text layoutX="390.0" layoutY="120.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Where do you want to park?" />
+      <JFXButton defaultButton="true" focusTraversable="false" layoutX="435.0" layoutY="263.0" onAction="#onOKclick" prefHeight="27.0" prefWidth="91.0" style="-fx-background-color: #343a40;" text="Show details" textFill="WHITE" />
+      <Label layoutX="367.0" layoutY="406.0" prefHeight="17.0" prefWidth="78.0" text="Total cost:" />
+      <Text layoutX="386.0" layoutY="200.0" strokeType="OUTSIDE" strokeWidth="0.0" text="How long will you park there?" />
+      <JFXTextField fx:id="hours" layoutX="388.0" layoutY="219.0" prefHeight="27.0" prefWidth="182.0" />
+      <Label fx:id="cost" layoutX="455.0" layoutY="395.0" prefHeight="38.0" prefWidth="342.0">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <JFXButton fx:id="pay" layoutX="440.0" layoutY="503.0" onAction="#onPayClick" prefHeight="38.0" prefWidth="78.0" style="-fx-background-color: #343a40;" text="Pay" textFill="WHITE">
+      <JFXButton fx:id="pay" layoutX="442.0" layoutY="498.0" onAction="#onPayClick" prefHeight="38.0" prefWidth="78.0" style="-fx-background-color: #343a40;" text="Pay" textFill="WHITE">
          <font>
             <Font size="18.0" />
          </font>
       </JFXButton>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="601.0" layoutX="232.0" stroke="BLACK" strokeType="INSIDE" style="-fx-fill: #343a40;" width="7.0" />
-      <JFXComboBox fx:id="towns" layoutX="388.0" layoutY="205.0" prefHeight="25.0" prefWidth="182.0" />
-      <Label layoutX="357.0" layoutY="374.0" text="Base Hour price:" />
-      <Label layoutX="402.0" layoutY="414.0" text="Type:" />
-      <Label fx:id="basePrice" layoutX="465.0" layoutY="374.0" />
-      <Label fx:id="type" layoutX="451.0" layoutY="414.0" />
+      <JFXComboBox fx:id="towns" layoutX="389.0" layoutY="139.0" prefHeight="25.0" prefWidth="182.0" />
+      <Label layoutX="359.0" layoutY="330.0" text="Base Hour price:" />
+      <Label layoutX="402.0" layoutY="368.0" text="Type:" />
+      <Label fx:id="basePrice" layoutX="465.0" layoutY="330.0" prefHeight="17.0" prefWidth="29.0" />
+      <Label fx:id="type" layoutX="462.0" layoutY="368.0" prefHeight="17.0" prefWidth="172.0" />
       <Label fx:id="warning" layoutX="260.0" layoutY="548.0" prefHeight="39.0" prefWidth="525.0" textFill="RED">
          <font>
             <Font name="System Bold" size="14.0" />
+         </font>
+      </Label>
+      <Label fx:id="funds" layoutX="280.0" layoutY="456.0" prefHeight="27.0" prefWidth="479.0" textFill="RED">
+         <font>
+            <Font name="System Bold Italic" size="14.0" />
          </font>
       </Label>
    </children>

@@ -25,15 +25,20 @@ public class BuyTicketController implements Initializable,MenuInterface {
     @FXML
     private TextField hours;
     @FXML
-    private Label cost,type,basePrice,warning;
+    private Label cost,type,basePrice,warning,funds,balance;
+    @FXML
+    private Button pay;
 
+    private Double priceToBePaid;
     ObservableList<String> townsList = FXCollections.observableArrayList("Bratislava",
             "Kosice","Nitra","Trnava","Topolcany","Trencin","Zilina");
 
     User user;
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
         towns.setItems(townsList);
+        pay.setDisable(true);
     }
 
     public void setUser(User user){
@@ -72,19 +77,35 @@ public class BuyTicketController implements Initializable,MenuInterface {
         Class pomoc = parkPlace.getClass();
         int hour = Integer.parseInt(hours.getText());
         basePrice.setText(String.valueOf(parkPlace.getBaseHourPrice()));
+
         type.setText(pomoc.getName().replace("ParkPlaces.","").replace("Parking",""));
-        if (this.user instanceof Student)
-            cost.setText(String.format("%.2f",parkPlace.calculatePrice((Student) this.user,hour)) + " € (with Student discount)");
+        if (this.user instanceof Student){
+            cost.setText(String.format("%.2f",parkPlace.calculatePrice((Student) this.user,hour)) + " €");
+        }
+
         else
-        if (this.user instanceof DisabledPerson)
-            cost.setText(String.format("%.2f",parkPlace.calculatePrice((DisabledPerson) this.user,hour)) + " € (with SDP discount)");
-        else
+        if (this.user instanceof DisabledPerson){
+            cost.setText(String.format("%.2f",parkPlace.calculatePrice((DisabledPerson) this.user,hour)) + " €");
+
+        }
+
+        else {
             cost.setText(parkPlace.calculatePrice(this.user,hour) + " €");
+        }
         if (parkPlace.getNumOfDPPSpots() == 0 && this.user instanceof DisabledPerson)
             warning.setText("Warning! This parking lot does not have exclusive places for Disabled people!");
+        if (this.user.getCredit() < Double.parseDouble(cost.getText().replace(" €","")) ){
+            funds.setText("Insufficient funds, please increase your account balance.");
+            pay.setDisable(true);
+            return;
+        }
+        funds.setText("");
+        pay.setDisable(false);
+        this.priceToBePaid = Double.parseDouble(cost.getText().replace(" €",""));
     }
 
     public void onPayClick(){
+        this.user.updateCreditDec(priceToBePaid);
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Information Dialog");
         alert.setHeaderText(null);
@@ -107,5 +128,18 @@ public class BuyTicketController implements Initializable,MenuInterface {
     @Override
     public void onBuyTicketClick(ActionEvent event) throws IOException {
 
+    }
+
+    public void onWalletClick(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("../Scenes/wallet.fxml"));
+        Parent newsceneparent = loader.load();
+        Scene newscene = new Scene(newsceneparent);
+        walletController controller = loader.getController();
+        controller.setUser(this.user);
+        //This line gets the Stage information
+        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        window.setScene(newscene);
+        window.show();
     }
 }

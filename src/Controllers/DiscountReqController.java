@@ -11,8 +11,10 @@ import javafx.scene.control.Alert;
 import javafx.stage.Stage;
 import Users.*;
 
+import javax.xml.crypto.Data;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 public class DiscountReqController implements Initializable,MenuInterface {
@@ -87,6 +89,19 @@ public class DiscountReqController implements Initializable,MenuInterface {
         alert.setHeaderText(null);
         alert.setContentText("Request send. Our administrative worker will look into it in a short time.");
         alert.showAndWait();
+    }
+
+    public void onWalletClick(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("../Scenes/wallet.fxml"));
+        Parent newsceneparent = loader.load();
+        Scene newscene = new Scene(newsceneparent);
+        walletController controller = loader.getController();
+        controller.setUser(this.user);
+        //This line gets the Stage information
+        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        window.setScene(newscene);
+        window.show();
     }
 
 }

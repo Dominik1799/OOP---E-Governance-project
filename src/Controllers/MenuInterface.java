@@ -9,4 +9,5 @@ public interface MenuInterface {
     public void onBuyTicketClick(ActionEvent event) throws IOException;
     public void onDiscReqClick(ActionEvent event) throws IOException;
     public void onOverviewClick(ActionEvent event) throws IOException;
+    public void onWalletClick(ActionEvent event) throws IOException;
 }

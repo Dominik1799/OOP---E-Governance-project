@@ -43,7 +43,7 @@ public class Datasource {
 
     //FUNGUJE
     public void createUser(String SPZ,String Password,String Name,String Surename,String FuelType)  {
-        String sql = "INSERT INTO users(SPZ,Password,Name,Surename,FuelType,Type) VALUES(?,?,?,?,?,?)";
+        String sql = "INSERT INTO users(SPZ,Password,Name,Surename,FuelType,Type,credit) VALUES(?,?,?,?,?,?,?)";
         try {
             Connection conn = DriverManager.getConnection("jdbc:sqlite:users.db");
             PreparedStatement pstmt = conn.prepareStatement(sql);
@@ -53,6 +53,7 @@ public class Datasource {
             pstmt.setString(4, Surename);
             pstmt.setString(5, FuelType);
             pstmt.setString(6, "regular");
+            pstmt.setInt(7, 0);
             pstmt.executeUpdate();
             conn.close();
 
@@ -85,7 +86,7 @@ public class Datasource {
     }
 
     public ParkPlace findParking(String town) throws SQLException {
-        Connection conn = DriverManager.getConnection("jdbc:sqlite:parkPlaces.db");
+        Connection conn = DriverManager.getConnection("jdbc:sqlite:users.db");
         Statement statement = conn.createStatement();
         statement.execute("SELECT * FROM parkplaces");
         ResultSet results = statement.getResultSet();
@@ -98,6 +99,7 @@ public class Datasource {
         String type = results.getString("type");
         int numOfDPP = results.getInt("DPP-places");
         int hourPrice = results.getInt("hourprice");
+        conn.close();
         return ParkingFactory.getInstance().makeParkPlace(type,numOfDPP,hourPrice);
     }
 
@@ -124,17 +126,20 @@ public class Datasource {
         }
     }
 
-//    public ObservableList<String> getPendingReqStudent() throws SQLException{
-//        ObservableList<String> people = FXCollections.observableArrayList();
-//        Connection conn = DriverManager.getConnection("jdbc:sqlite:parkPlaces.db");
-//        Statement statement = conn.createStatement();
-//        statement.execute("SELECT * FROM users");
-//        ResultSet results = statement.getResultSet();
-//        while(results.next()){
-//            if (results.getInt("req") == 1)
-//                people.add(results.getString("SPZ"));
-//        }
-//        return people;
-//    }
+    public void updateCredit(Double value,String SPZ){
+        String sql = "UPDATE users "
+                + "SET credit = ? "
+                + "WHERE SPZ = ?";
+        try {
+            conn = DriverManager.getConnection("jdbc:sqlite:users.db");
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            //Dominik je to tym prikazom samotnym. z nejakeho dovodu to nestiha prelozit. najdi iny prikaz
+            pstmt.setDouble(1, value);
+            pstmt.setString(2, SPZ);
+            pstmt.executeUpdate();
+        }catch(SQLException e){
+            System.out.println(e);
+        }
+    }
 }
 

@@ -1,10 +1,26 @@
 package Users;
 
+import Factories.Datasource;
+
+import javax.xml.crypto.Data;
+
 public class User implements user_interface {
     private String name;
     private String surename;
     private String typeOfCar;
     private String Carid;
+    private Double credit;
+
+    @Override
+    public Double getCredit() {
+        return this.credit;
+    }
+
+    @Override
+    public void setCredit(Double credit) {
+        this.credit = credit;
+    }
+
     public  String getName() {
         return name;
     }
@@ -39,21 +55,21 @@ public class User implements user_interface {
         return Carid;
     }
 
-    public User(String fname,String surename,String typeOfCar,String Carid){
+    public User(String fname,String surename,String typeOfCar,String Carid,Double credit){
         this.name = fname;
         this.surename = surename;
         this.typeOfCar = typeOfCar;
         this.Carid = Carid;
+        this.credit = credit;
     }
 
-//    public class Admin extends User implements user_interface {
-//        public Admin(String fname, String surename, String typeOfCar, String Carid) {
-//            super(fname, surename, typeOfCar, Carid);
-//        }
-//
-//        public void acceptUser(String SPZ, String Type) {
-//            Datasource.getInstance().updateUser(SPZ, Type);
-//        }
-//    }
+    public void updateCreditInc(Double value){
+        this.credit = this.credit + value;
+        Datasource.getInstance().updateCredit(this.credit,this.Carid);
+    }
+    public void updateCreditDec(Double value){
+        this.credit = this.credit - value;
+        Datasource.getInstance().updateCredit(this.credit,this.Carid);
+    }
 
 }

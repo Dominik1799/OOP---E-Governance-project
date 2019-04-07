@@ -18,6 +18,11 @@
                   <Font size="24.0" />
                </font>
             </JFXButton>
+            <JFXButton focusTraversable="false" onAction="#onWalletClick" prefHeight="71.0" prefWidth="236.0" style="-fx-background-color: #FFDC00;" text="Wallet">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </JFXButton>
             <JFXButton focusTraversable="false" layoutX="10.0" layoutY="10.0" onAction="#onBuyTicketClick" prefHeight="71.0" prefWidth="238.0" text="Buy ticket">
                <font>
                   <Font size="24.0" />

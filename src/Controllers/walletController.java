@@ -9,35 +9,29 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class HomeScreenController implements Initializable,MenuInterface {
-
+public class walletController implements MenuInterface, Initializable {
     private User user;
     @FXML
-    private Label Name,Surename,Carid,Ftype,Status,Credit;
+    private Label funds;
+    @FXML
+    private TextField money;
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-
-    }
-
-    public void setAllLabels(User user){
-        Class pomoc = user.getClass();
-        Name.setText(user.getName());
-        Surename.setText(user.getSurename());
-        Carid.setText(user.getCarID());
-        Ftype.setText(user.getTypeOfCar());
-        Status.setText(pomoc.getName().replace("Users.","").replace("Person",""));
-        Credit.setText(user.getCredit() + "€");
+    public void setUser(User user){
         this.user = user;
     }
 
+    public void setLabel(){
+        funds.setText(String.valueOf(this.user.getCredit()));
+    }
 
+    @Override
     public void onLogOutClick(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("../Scenes/login.fxml"));
@@ -50,6 +44,7 @@ public class HomeScreenController implements Initializable,MenuInterface {
         window.show();
     }
 
+    @Override
     public void onBuyTicketClick(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("../Scenes/buyTicket.fxml"));
@@ -62,13 +57,8 @@ public class HomeScreenController implements Initializable,MenuInterface {
         window.setScene(newscene);
         window.show();
     }
-    public void onaaClick(){
-        if (user.getClass() == Student.class) System.out.println("null");
-        System.out.println(user.getName());
-        System.out.println(user.getTypeOfCar());
-        System.out.println(user.getSurename());
-    }
 
+    @Override
     public void onDiscReqClick(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("../Scenes/DiscountReq.fxml"));
@@ -83,22 +73,31 @@ public class HomeScreenController implements Initializable,MenuInterface {
     }
 
     @Override
-    public void onOverviewClick(ActionEvent event) {
-
-    }
-
-    @Override
-    public void onWalletClick(ActionEvent event) throws IOException {
+    public void onOverviewClick(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("../Scenes/wallet.fxml"));
+        loader.setLocation(getClass().getResource("../Scenes/homescreen.fxml"));
         Parent newsceneparent = loader.load();
         Scene newscene = new Scene(newsceneparent);
-        walletController controller = loader.getController();
-        controller.setUser(this.user);
-        controller.setLabel();
+        HomeScreenController controller = loader.getController();
+        controller.setAllLabels(this.user);
+
         //This line gets the Stage information
         Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
         window.setScene(newscene);
         window.show();
+    }
+
+    public void onOKclick(){
+        Double userCreditRaise = Double.parseDouble(money.getText().replace(" €",""));
+        this.user.updateCreditInc(userCreditRaise);
+        funds.setText(String.valueOf(this.user.getCredit()));
+    }
+
+    public void onWalletClick(ActionEvent event) throws IOException {
+
+    }
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
     }
 }

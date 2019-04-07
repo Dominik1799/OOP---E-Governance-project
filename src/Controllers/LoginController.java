@@ -24,6 +24,7 @@ public class LoginController {
     private String userSurename;
     private String userSPZ;
     private String userFuelType;
+    private Double credit;
     private boolean isLoginSuccesful = false;
 
     @FXML
@@ -63,6 +64,7 @@ public class LoginController {
                     userSurename = results.getString("Surename");
                     userSPZ = results.getString("SPZ");
                     userFuelType = results.getString("FuelType");
+                    credit = results.getDouble("credit");
                     isLoginSuccesful = true;
                     Datasource.getInstance().closeConnection();
                     break;
@@ -82,7 +84,7 @@ public class LoginController {
             loader.setLocation(getClass().getResource("../Scenes/homescreen.fxml"));
             Parent newsceneparent = loader.load();
             Scene newscene = new Scene(newsceneparent);
-            user = UserFactory.getInstance().makeUser(type,userName,userSurename,userFuelType,userSPZ);
+            user = UserFactory.getInstance().makeUser(type,userName,userSurename,userFuelType,userSPZ,credit);
             HomeScreenController controller = loader.getController();
             controller.setAllLabels(user);
             Datasource.getInstance().closeConnection();

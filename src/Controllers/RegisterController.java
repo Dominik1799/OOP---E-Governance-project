@@ -1,6 +1,7 @@
 package Controllers;
 
 import Factories.Datasource;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -37,10 +38,14 @@ public class RegisterController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         FuelType.setItems(FuelTypesList);
-//        FuelType.getItems().remove("Hybrid");
     }
 
-    public void onRegisterClick(ActionEvent event) throws IOException {
+    public void onRegisterClick(ActionEvent event) throws IOException,LoginException {
+        boolean safeCheck = Name.getText().isEmpty() || Surename.getText().isEmpty() || (FuelType.getValue() == null) ||
+                            Carid.getText().isEmpty() || Password.getText().isEmpty();
+        if (safeCheck){
+            throw new LoginException();
+        }
         Datasource.getInstance().createUser(Carid.getText(),Password.getText(),Name.getText(),Surename.getText(),(String)FuelType.getValue());
         System.out.println(FuelType.getValue());
         Alert alert = new Alert(Alert.AlertType.INFORMATION);

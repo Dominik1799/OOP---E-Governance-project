@@ -3,6 +3,12 @@ package Users;
 
 
 public interface user_interface {
+    public Double getCredit();
+
+
+    public void setCredit(Double credit);
+
+
     public  String getName();
 
     public String getType();

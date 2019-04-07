@@ -66,14 +66,15 @@ public class adminSceneController implements Initializable {
 
             if (rs.getString("SPZ").equalsIgnoreCase("admin")){
                 this.admin = new Admin(rs.getString("Name"),rs.getString("Surename"),
-                                       rs.getString("FuelType"),rs.getString("SPZ"));
+                                       rs.getString("FuelType"),rs.getString("SPZ"), (double) 0);
                 continue;
             }
+            //v tejto scene je jedno kolko maju pouzivatelia kreditu, preto nastavim nulu
             people.add(UserFactory.getInstance().makeUser(rs.getString("Type"),
                     rs.getString("Name"),
                     rs.getString("Surename"),
                     rs.getString("FuelType"),
-                    rs.getString("SPZ")));
+                    rs.getString("SPZ"), (double) 0));
             if (rs.getInt("req") == 1) this.StudentreqID.add(rs.getString("SPZ"));
             if (rs.getInt("req") == 2) this.DisabledreqID.add(rs.getString("SPZ"));
                     }
@@ -105,8 +106,8 @@ public class adminSceneController implements Initializable {
 
     //kedze je trieda admin pouzita len tu, pouzijem ju ako vhniezdenu triedu
     public class Admin extends User implements user_interface {
-        public Admin(String fname, String surename, String typeOfCar, String Carid) {
-            super(fname, surename, typeOfCar, Carid);
+        public Admin(String fname, String surename, String typeOfCar, String Carid, Double credit) {
+            super(fname, surename, typeOfCar, Carid, credit);
         }
 
         public void acceptUser(String SPZ, String Type) {
