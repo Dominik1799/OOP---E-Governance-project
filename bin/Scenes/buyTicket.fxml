@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.BuyTicketController">
+   <children>
+      <VBox prefHeight="600.0" prefWidth="233.0" style="-fx-background-color: #FFDC00;">
+         <children>
+            <JFXButton focusTraversable="false" onAction="#onOverviewClick" prefHeight="71.0" prefWidth="236.0" style="-fx-background-color: #FFDC00;" text="Overview">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </JFXButton>
+            <JFXButton focusTraversable="false" onAction="#onWalletClick" prefHeight="71.0" prefWidth="236.0" style="-fx-background-color: #FFDC00;" text="Wallet">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </JFXButton>
+            <JFXButton disable="true" focusTraversable="false" layoutX="10.0" layoutY="10.0" onAction="#onOverviewClick" prefHeight="71.0" prefWidth="236.0" style="-fx-background-color: #FFDC00;" text="Buy ticket">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </JFXButton>
+            <JFXButton focusTraversable="false" layoutX="10.0" layoutY="81.0" onAction="#onDiscReqClick" prefHeight="71.0" prefWidth="236.0" style="-fx-background-color: #FFDC00;" text="Discount req.">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </JFXButton>
+            <JFXButton focusTraversable="false" layoutX="10.0" layoutY="152.0" onAction="#onLogOutClick" prefHeight="71.0" prefWidth="236.0" style="-fx-background-color: #FFDC00;" text="Log out">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </JFXButton>
+         </children>
+      </VBox>
+      <Label layoutX="260.0" layoutY="15.0" prefHeight="71.0" prefWidth="323.0" text="Buy a new parking ticket">
+         <font>
+            <Font size="28.0" />
+         </font>
+      </Label>
+      <Text layoutX="390.0" layoutY="120.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Where do you want to park?" />
+      <JFXButton defaultButton="true" focusTraversable="false" layoutX="435.0" layoutY="263.0" onAction="#onOKclick" prefHeight="27.0" prefWidth="91.0" style="-fx-background-color: #343a40;" text="Show details" textFill="WHITE" />
+      <Label layoutX="367.0" layoutY="406.0" prefHeight="17.0" prefWidth="78.0" text="Total cost:" />
+      <Text layoutX="386.0" layoutY="200.0" strokeType="OUTSIDE" strokeWidth="0.0" text="How long will you park there?" />
+      <JFXTextField fx:id="hours" layoutX="388.0" layoutY="219.0" prefHeight="27.0" prefWidth="182.0" />
+      <Label fx:id="cost" layoutX="455.0" layoutY="395.0" prefHeight="38.0" prefWidth="342.0">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <JFXButton fx:id="pay" layoutX="442.0" layoutY="498.0" onAction="#onPayClick" prefHeight="38.0" prefWidth="78.0" style="-fx-background-color: #343a40;" text="Pay" textFill="WHITE">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </JFXButton>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="601.0" layoutX="232.0" stroke="BLACK" strokeType="INSIDE" style="-fx-fill: #343a40;" width="7.0" />
+      <JFXComboBox fx:id="towns" layoutX="389.0" layoutY="139.0" prefHeight="25.0" prefWidth="182.0" />
+      <Label layoutX="359.0" layoutY="330.0" text="Base Hour price:" />
+      <Label layoutX="402.0" layoutY="368.0" text="Type:" />
+      <Label fx:id="basePrice" layoutX="465.0" layoutY="330.0" prefHeight="17.0" prefWidth="29.0" />
+      <Label fx:id="type" layoutX="462.0" layoutY="368.0" prefHeight="17.0" prefWidth="172.0" />
+      <Label fx:id="warning" layoutX="260.0" layoutY="548.0" prefHeight="39.0" prefWidth="525.0" textFill="RED">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Label>
+      <Label fx:id="funds" layoutX="280.0" layoutY="456.0" prefHeight="27.0" prefWidth="479.0" textFill="RED">
+         <font>
+            <Font name="System Bold Italic" size="14.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>
